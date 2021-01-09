@@ -2,7 +2,7 @@
 
 # gm48.net-leaderboards-gms2
 
-Utilize gm48.net Leaderboards for your GameMaker Studio 2 game jam entry
+Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entry
 
 ## Requirements
 
@@ -74,7 +74,7 @@ When you use the `gm48_leaderboards_add_score` function, the request ID is retur
 
 Once the request to the gm48.net Leaderboards API has been processed, a response is sent back to GameMaker Studio 2 via the Async HTTP event, and if you have defined a callback script, the response and the request ID will be sent along as the the callback script is executed.
 
-```
+```gml
 function scr_example_callback(response, requestId)
 {
     show_message("Your score has been submitted to the official gm48.net Leaderboards!");
