@@ -76,7 +76,7 @@ All you need to submit a score is 1) the ID of the leaderboard, which correspond
 gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
 ```
 
-When you use the `gm48_leaderboards_add_score` function, the request ID is returned. Store this value if you want to recognize your request later.
+When you use the `gm48_leaderboards_add_score` function, the request ID is returned. Store this value if you want to recognize your request later. All requests are stored in the global `gm48_leaderboards_request` variable ds_map.
 
 You may send meta information along with the score. Please see the `obj_example` object resource's [`Key Up: Enter`](objects/obj_example/KeyRelease_13.gml) event for details on how to implement this functionality.
 
@@ -89,7 +89,7 @@ function scr_example_callback(response, requestId)
 }
 ```
 
-The `response` value is a struct, as the raw response is run through `json_parse`. Please see GameMaker Studio 2 documentation for more information.
+The `response` value is a struct, as the raw response is run through `json_parse`. Please see GameMaker Studio 2 documentation for more information on how to deal with structs.
 
 ### Retrieving leaderboard scores
 
