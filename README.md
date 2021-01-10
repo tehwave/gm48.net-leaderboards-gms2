@@ -1,6 +1,6 @@
 👷‍♂️👷‍♀️ The Leaderboards API is in Beta and may change at any time without prior warning and disclosure.
 
-# gm48.net-leaderboards-gms2
+# gm48.net Leaderboards for GameMaker Studio 2
 
 Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entry
 
