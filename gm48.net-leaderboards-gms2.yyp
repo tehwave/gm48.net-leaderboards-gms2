@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"scr_callback_example","path":"scripts/scr_callback_example/scr_callback_example.yy",},"order":1,},
     {"id":{"name":"gm48_leaderboards_library","path":"scripts/gm48_leaderboards_library/gm48_leaderboards_library.yy",},"order":0,},
     {"id":{"name":"obj_example","path":"objects/obj_example/obj_example.yy",},"order":0,},
     {"id":{"name":"rm_example","path":"rooms/rm_example/rm_example.yy",},"order":0,},

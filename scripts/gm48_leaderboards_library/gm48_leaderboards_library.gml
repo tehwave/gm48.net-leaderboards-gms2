@@ -10,29 +10,35 @@ This library requires the gm48.net OAuth2 for GameMaker Studio 2 library to func
 
 -------------------------------- */
 
-function gm48_leaderboards_init(gameId)
+function gm48_leaderboards_init(callback)
 {
 	// Verify that OAuth2 library exists.
-	if (! asset_get_index("gm48_oauth2_init")) {
+	if (! asset_get_index("gm48_oauth2_init") && ! debug_mode) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Library is required.", true);	
 	}
 
+	// Prepare global variables.
 	gm48_leaderboards_globals();
-	global.gm48_leaderboards_game_id = gameId;
-	global.gm48_leaderboards_callback = argument[1];
 
+	if (! is_undefined(callback)) {
+		global.gm48_leaderboards_callback = argument0;
+	}
+
+	// Prepare macros.
 	gm48_leaderboards_macros();
+	
+	// All ready.
+	gm48_debug("Leaderboards functionality initialized.");
 }	
 
 function gm48_leaderboards_macros()
 {
 	#macro GM48_LEADERBOARDS_USERAGENT "gamemaker:" + game_display_name + ":" + GM_version
-    #macro GM48_LEADERBOARDS_API_URL "https://gm48.net/api/v4/games/" + string(global.gm48_leaderboards_game_id) + "/"
+    #macro GM48_LEADERBOARDS_API_URL "https://gm48.test/api/v4/"
 }
 
 function gm48_leaderboards_globals()
 {
-	global.gm48_leaderboards_game_id = -1;
 	global.gm48_leaderboards_callback = -1;
 	global.gm48_leaderboards_requests = ds_map_create();
 }
@@ -45,7 +51,7 @@ API
 
 function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
 {
-	if (! global.gm48_oauth2_access_token) {
+	if (! is_string(global.gm48_oauth2_access_token)) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);	
 	}
 	
@@ -56,12 +62,21 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
 	    _header_map[? "User-Agent"] = GM48_LEADERBOARDS_USERAGENT;
 		_header_map[? "Authorization"] = "Bearer " + string(global.gm48_oauth2_access_token);
 		_header_map[? "Content-Type"] = "application/x-www-form-urlencoded";
+		_header_map[? "Accept"] = "application/json";
 
     var _body  = "value=" + string(scoreToSubmit);
 	
 	// Third argument is "meta" which allows you to send additional data along with the score. 
-	if (argument[2] && ds_exists(argument[2], ds_type_map)) {
+	// This includes support for both ds_map and structs.
+	if (argument_count == 3 && is_struct(argument[2])) {
+		_body += "&meta=" + json_stringify(argument[2]);
+	} else if (argument_count == 3 && is_real(argument[2]) && ds_exists(argument[2], ds_type_map)) {
 		_body += "&meta=" + string(json_encode(argument[2]));
+		
+		// Free memory.
+		ds_map_destroy(argument[2]);
+	} else if (argument_count == 3) {
+		show_error("gm48.net-leaderboards-gms2: Unable to prepare meta data for request.", false);	
 	}
 
 	// Send request.
@@ -75,6 +90,9 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
 		_request[? "method"] = "POST";
 
 	ds_map_add(global.gm48_leaderboards_requests, _result, _request);
+	
+	// Log it.
+	gm48_debug("Request sent to Leaderboards API", _url, _body);
 
 	// Free memory.
     ds_map_destroy(_header_map);
@@ -146,13 +164,12 @@ function gm48_leaderboards_http()
 	}
 
 	// Process result.
-    var _decoded_result = json_decode(_result);
+    var _decoded_result = json_parse(_result);
+
+	gm48_debug("Successful response received.", _http_status, _result, _decoded_result);
 	
-    if (_decoded_result < 0) {
-        show_error("gm48.net-leaderboards-gms2: JSON response could not be decoded", true);
-    }
-	
-	if (script_exists(_request[? "callback"])) {
+	// Execute callbacks.
+	if (! is_undefined(_request[? "callback"]) && script_exists(_request[? "callback"])) {
 		script_execute(_request[? "callback"], _decoded_result, _id);	
 	}
 	
