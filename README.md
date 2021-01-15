@@ -58,6 +58,10 @@ You must also change the `leaderboardId` variable's value in the `obj_example` o
 
 Please refer to the [gm48.net OAuth2 for GameMaker Studio 2 repository](https://github.com/tehwave/gm48.net-oauth2-gms2) for implementation.
 
+### YYC (YoYo Compiler)
+
+Please refer to [this explanation](https://github.com/tehwave/gm48.net-oauth2-gms2#why-is-yyc-yoyo-compiler-required) for details.
+
 ## Usage
 
 Before you can use the leaderboards, you must ask the player for authorization to use their gm48.net account.
