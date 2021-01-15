@@ -97,7 +97,11 @@ The `response` value is a struct, as the raw response is run through `json_parse
 
 ### Retrieving leaderboard scores
 
-📝 TODO
+The leaderboard scores are available via an GET request to `https://gm48.net/api/v4/leaderboards/{leaderboardId}`.
+
+This library does not currently have any functionality out-of-the-box to help you retrieve these.
+
+That's on the 📝 TODO list.
 
 ## Security
 
