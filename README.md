@@ -56,7 +56,7 @@ You must also change the `leaderboardId` variable's value in the `obj_example` o
 
 ### gm48.net OAuth2 for GameMaker Studio 2
 
-Please refer to the [gm48.net OAuth2 for GameMaker Studio 2 repository](https://github.com/tehwave/gm48.net-oauth2-gms2) for implementation.
+Please refer to the [gm48.net OAuth2 for GameMaker Studio 2 repository](https://github.com/tehwave/gm48.net-oauth2-gms2) for installation.
 
 ### YYC (YoYo Compiler)
 
