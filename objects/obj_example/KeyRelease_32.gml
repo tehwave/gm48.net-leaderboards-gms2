@@ -1,0 +1,1 @@
+gm48_leaderboards_get_all_scores(leaderboardId, scr_all_scores_callback_example);
