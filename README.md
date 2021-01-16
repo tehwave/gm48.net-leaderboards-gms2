@@ -22,6 +22,14 @@ Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entr
 
 **Create**
 
+You must first set the Game API Token. This is used to recognize the request came from your game. The value for `gameApiToken` can be found in gm48.net Dashboard > (your game) > Leaderboards.
+
+```gml
+gm48_set_game_api_token(gameApiToken);
+```
+
+Initialize the leaderboards.
+
 ```gml
 gm48_leaderboards_init();
 ```
@@ -74,7 +82,7 @@ Once the player has been authorized, you may proceed to use the Leaderboards lib
 
 > 🚨 Submitting scores is always done on the behalf of an gm48.net account. You should not use your own or the same account for every score submitted.
 
-All you need to submit a score is 1) the UUID of the leaderboard, simplified as `leaderboardId`, which corresponds to the `UUID` value found in gm48.net Dashboard > (your game) > Leaderboards, and 2) the score that you wish to submit.
+All you need to submit a score is 1) the ID of the leaderboard, which corresponds to the `ID` value found in gm48.net Dashboard > (your game) > Leaderboards, and 2) the score that you wish to submit.
 
 ```gml
 gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
@@ -95,13 +103,23 @@ function scr_example_callback(response, requestId)
 
 The `response` value is a struct, as the raw response is run through `json_parse`. Please see GameMaker Studio 2 documentation for more information on how to deal with structs.
 
-### Retrieving leaderboard scores
+### Retrieving scores
 
-The leaderboard scores are available via an GET request to `https://gm48.net/api/v4/leaderboards/{leaderboardId}`.
+The callbacks `scr_all_scores_callback_example` and `scr_my_scores_callback_example` values should correspond to script resources in your project.
 
-This library does not currently have any functionality out-of-the-box to help you retrieve these.
+The script resource will be executed in the same fashion as the `scr_example_callback` example in the previous section.
 
-That's on the 📝 TODO list.
+### All scores
+
+```gml
+gm48_leaderboards_get_all_scores(leaderboardId, scr_all_scores_callback_example);
+```
+
+### The player's scores
+
+```gml
+gm48_leaderboards_get_my_scores(leaderboardId, scr_my_scores_callback_example);
+```
 
 ## Security
 
