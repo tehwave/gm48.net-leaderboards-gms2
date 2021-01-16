@@ -16,9 +16,14 @@ Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entr
 
 > 🚨 This library requires that [gm48.net OAuth2 for GameMaker Studio 2](https://github.com/tehwave/gm48.net-oauth2-gms2) is installed in your GameMaker Studio 2 project.
 
-1) Copy and paste the contents of the [gm48_leaderboards_library.gml](scripts/gm48_leaderboards_library/gm48_leaderboards_library.gml) file into a new script resource.
 
-2) Create a new persistent object resource and set up the following events:
+1) Go to gm48.net Dashboard > (your game) > Leaderboards to create and edit your game's leaderboards.
+
+Once you have created your first leaderboard, the credentials and information required to submit and retrieve scores is presented to you.
+
+2) Copy and paste the contents of the [gm48_leaderboards_library.gml](scripts/gm48_leaderboards_library/gm48_leaderboards_library.gml) file into a new script resource.
+
+3) Create a new persistent object resource and set up the following events:
 
 **Create**
 
@@ -45,10 +50,6 @@ gm48_leaderboards_init(scr_example_callback);
 ```gml
 gm48_leaderboards_http();
 ```
-
-3) Go to gm48.net Dashboard > (your game) > Leaderboards to create and edit your game's leaderboards.
-
-Once you have created your first leaderboard, the credentials and information required to submit and retrieve scores is presented to you.
 
 ### Example project
 
