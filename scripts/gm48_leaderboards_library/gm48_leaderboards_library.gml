@@ -34,14 +34,14 @@ function gm48_leaderboards_init(callback)
 function gm48_leaderboards_macros()
 {
 	#macro GM48_LEADERBOARDS_USERAGENT "gamemaker:" + game_display_name + ":" + GM_version
-    #macro GM48_LEADERBOARDS_API_URL "https://gm48.test/api/v4/"
+    #macro GM48_LEADERBOARDS_API_URL "https://gm48.net/api/v4/"
 }
 
 function gm48_leaderboards_globals()
 {
 	global.gm48_leaderboards_callback = -1;
 	global.gm48_leaderboards_requests = ds_map_create();
-	
+
 	if (! variable_global_exists("gm48_game_api_token")) {
 		global.gm48_game_api_token = -1;
 	}
@@ -58,11 +58,11 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
 	if (! is_string(global.gm48_oauth2_access_token)) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
-	
+
 	if (! is_string(gm48_get_game_api_token())) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
-	
+
 	// Put together request.
 	var _url = GM48_LEADERBOARDS_API_URL + "leaderboards/" + string(leaderboardId) + "/scores";
 
@@ -97,8 +97,8 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
 		_request[? "headers"] = _header_map;
 		_request[? "body"] = _body;
 		_request[? "method"] = "POST";
-		
-	/* FIXME Some sort of bug here? 
+
+	/* FIXME Some sort of bug here?
 	if (! is_undefined(callback)) {
 		_request[? "callback"] = argument[2];
 	}
@@ -120,11 +120,11 @@ function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 	if (! is_string(global.gm48_oauth2_access_token)) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
-	
+
 	if (! is_string(gm48_get_game_api_token())) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
-	
+
 	// Put together request.
 	var url = GM48_LEADERBOARDS_API_URL + "leaderboards/" + string(leaderboardId) + "/me";
 
@@ -143,7 +143,7 @@ function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 		request[? "headers"] = headers;
 		request[? "body"] = undefined;
 		request[? "method"] = "GET";
-		
+
 	if (! is_undefined(callback)) {
 		request[? "callback"] = argument[1];
 	}
@@ -164,11 +164,11 @@ function gm48_leaderboards_get_all_scores(leaderboardId, callback)
 	if (! is_string(global.gm48_oauth2_access_token)) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
-	
+
 	if (! is_string(gm48_get_game_api_token())) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
-	
+
 	// Put together request.
 	var url = GM48_LEADERBOARDS_API_URL + "leaderboards/" + string(leaderboardId);
 
@@ -187,7 +187,7 @@ function gm48_leaderboards_get_all_scores(leaderboardId, callback)
 		request[? "headers"] = headers;
 		request[? "body"] = undefined;
 		request[? "method"] = "GET";
-		
+
 	if (! is_undefined(callback)) {
 		request[? "callback"] = argument[1];
 	}
@@ -314,7 +314,7 @@ if (! asset_get_index("gm48_get_game_api_token")) {
 		if (! variable_global_exists("gm48_game_api_token")) {
 			return undefined;
 		}
-		
+
 		return global.gm48_game_api_token;
 	}
 }
