@@ -104,7 +104,7 @@ function scr_example_callback(response, requestId)
 
 The `response` value is a struct, as the raw response is run through `json_parse`. Please see GameMaker Studio 2 documentation for more information on how to deal with structs.
 
-#### Retrieving scores
+### Retrieving scores
 
 The callbacks `scr_all_scores_callback_example` and `scr_my_scores_callback_example` values should correspond to script resources in your project.
 
@@ -116,7 +116,7 @@ The script resource will be executed in the same fashion as the `scr_example_cal
 gm48_leaderboards_get_all_scores(leaderboardId, scr_all_scores_callback_example);
 ```
 
-### The player's scores
+#### The player's scores
 
 ```gml
 gm48_leaderboards_get_my_scores(leaderboardId, scr_my_scores_callback_example);
