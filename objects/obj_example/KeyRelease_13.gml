@@ -12,8 +12,12 @@ var meta = {
 };
 */
 
+// You can also specify a specific script to execute 
+// when the response back from gm48.net API has been received.
+var callback = scr_add_score_callback_example;
+
 // Send the score.
-gm48_leaderboards_add_score(leaderboardId, randomScore, meta);
+gm48_leaderboards_add_score(leaderboardId, randomScore, meta, callback);
 
 // Log it.
 gm48_debug("Sent score to online leaderboard", randomScore);
