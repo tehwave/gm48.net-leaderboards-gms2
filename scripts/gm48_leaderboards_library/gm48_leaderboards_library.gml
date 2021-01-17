@@ -297,7 +297,7 @@ if (! asset_get_index("gm48_debug")) {
 	        ++_i;
 	    }
 
-	    show_debug_message("gm48:\n" + _string);
+	    return show_debug_message("gm48:\n" + _string);
 	}
 }
 
