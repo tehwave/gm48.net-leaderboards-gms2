@@ -34,7 +34,7 @@ function gm48_leaderboards_init(callback)
 function gm48_leaderboards_macros()
 {
 	#macro GM48_LEADERBOARDS_USERAGENT "gamemaker:" + game_display_name + ":" + GM_version
-    #macro GM48_LEADERBOARDS_API_URL "https://gm48.test/api/v4/"
+    #macro GM48_LEADERBOARDS_API_URL "https://gm48.net/api/v4/"
 }
 
 function gm48_leaderboards_globals()
