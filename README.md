@@ -57,7 +57,7 @@ gm48_leaderboards_http();
 
 The project will not work out-of-the-box, as you must first retrieve an access token via [gm48.net OAuth2 for GameMaker Studio 2](https://github.com/tehwave/gm48.net-oauth2-gms2).
 
-You must also change the variables `leaderboardId` and `gameApiToken` values in the `obj_example` object resource to a corresponding leaderboard ID in gm48.net Dashboard > Games > (your game) > Leaderboards.
+You must also change the variables `leaderboardId` and `gameApiToken` values in the `obj_example` object resource to the corresponding leaderboard ID and Game API Token in gm48.net Dashboard > Games > (your game) > Leaderboards.
 
 2) Launch the game in debug mode (F6). Watch the console output for debugging information.
 
