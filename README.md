@@ -17,7 +17,7 @@ Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entr
 > 🚨 This library requires that [gm48.net OAuth2 for GameMaker Studio 2](https://github.com/tehwave/gm48.net-oauth2-gms2) is installed in your GameMaker Studio 2 project.
 
 
-1) Go to gm48.net Dashboard > (your game) > Leaderboards to create and edit your game's leaderboards.
+1) Go to gm48.net Dashboard > Games > (your game) > Leaderboards to create and edit your game's leaderboards.
 
 Once you have created your first leaderboard, the credentials and information required to submit and retrieve scores is presented to you.
 
@@ -27,7 +27,7 @@ Once you have created your first leaderboard, the credentials and information re
 
 **Create**
 
-You must first set the Game API Token. This is used to recognize the request came from your game. The value for `gameApiToken` can be found in gm48.net Dashboard > (your game) > Leaderboards.
+You must first set the Game API Token. This is used to recognize the request came from your game. The value for `gameApiToken` can be found in gm48.net Dashboard > Games > (your game) > Leaderboards.
 
 ```gml
 gm48_set_game_api_token(gameApiToken);
@@ -57,7 +57,7 @@ gm48_leaderboards_http();
 
 The project will not work out-of-the-box, as you must first retrieve an access token via [gm48.net OAuth2 for GameMaker Studio 2](https://github.com/tehwave/gm48.net-oauth2-gms2).
 
-You must also change the `leaderboardId` variable's value in the `obj_example` object resource to a corresponding leaderboard UUID in gm48.net Dashboard > (your game) > Leaderboards.
+You must also change the `leaderboardId` variable's value in the `obj_example` object resource to a corresponding leaderboard ID in gm48.net Dashboard > Games > (your game) > Leaderboards.
 
 2) Launch the game in debug mode (F6). Watch the console output for debugging information.
 
@@ -83,7 +83,7 @@ Once the player has been authorized, you may proceed to use the Leaderboards lib
 
 > 🚨 Submitting scores is always done on the behalf of an gm48.net account. You should not use your own or the same account for every score submitted.
 
-All you need to submit a score is 1) the ID of the leaderboard, which corresponds to the `ID` value found in gm48.net Dashboard > (your game) > Leaderboards, and 2) the score that you wish to submit.
+All you need to submit a score is 1) the ID of the leaderboard, which corresponds to the `ID` value found in gm48.net Dashboard > Games > (your game) > Leaderboards, and 2) the score that you wish to submit.
 
 ```gml
 gm48_leaderboards_add_score(leaderboardId, scoreToSubmit)
