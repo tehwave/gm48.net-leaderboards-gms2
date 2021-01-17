@@ -285,7 +285,9 @@ if (! asset_get_index("gm48_debug")) {
 	    }
 
 		if (argument_count == 1) {
-			return show_debug_message("gm48: " + string(argument0));
+			show_debug_message("gm48: " + string(argument0));
+
+			return;
 		}
 
 	    var _string = "",
@@ -297,7 +299,7 @@ if (! asset_get_index("gm48_debug")) {
 	        ++_i;
 	    }
 
-	    return show_debug_message("gm48:\n" + _string);
+	    show_debug_message("gm48:\n" + _string);
 	}
 }
 
