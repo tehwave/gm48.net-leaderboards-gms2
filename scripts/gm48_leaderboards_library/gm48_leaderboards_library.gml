@@ -34,7 +34,7 @@ function gm48_leaderboards_init(callback)
 function gm48_leaderboards_macros()
 {
 	#macro GM48_LEADERBOARDS_USERAGENT "gamemaker:" + game_display_name + ":" + GM_version
-    #macro GM48_LEADERBOARDS_API_URL "https://gm48.net/api/v4/"
+    #macro GM48_LEADERBOARDS_API_URL "https://gm48.test/api/v4/"
 }
 
 function gm48_leaderboards_globals()
@@ -53,7 +53,7 @@ API
 
 -------------------------------- */
 
-function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
+function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, meta, callback)
 {
 	if (! is_string(global.gm48_oauth2_access_token)) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
@@ -77,15 +77,17 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
 
 	// Third argument is "meta" which allows you to send additional data along with the score.
 	// This includes support for both ds_map and structs.
-	if (argument_count == 3 && is_struct(argument[2])) {
-		_body += "&meta=" + json_stringify(argument[2]);
-	} else if (argument_count == 3 && is_real(argument[2]) && ds_exists(argument[2], ds_type_map)) {
-		_body += "&meta=" + string(json_encode(argument[2]));
+	if (! is_undefined(meta)) {
+		if (is_struct(meta)) {
+			_body += "&meta=" + json_stringify(meta);
+		} else if (is_real(meta) && ds_exists(meta, ds_type_map)) {
+			_body += "&meta=" + string(json_encode(meta));
 
-		// Free memory.
-		ds_map_destroy(argument[2]);
-	} else if (argument_count == 3) {
-		show_error("gm48.net-leaderboards-gms2: Meta data is wrong data type. It must be a struct or ds_map.", false);
+			// Free memory.
+			ds_map_destroy(meta);
+		} else {
+			show_error("gm48.net-leaderboards-gms2: Meta data is wrong data type. It must be a struct or ds_map.", false);
+		}
 	}
 
 	// Send request.
@@ -98,11 +100,9 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
 		_request[? "body"] = _body;
 		_request[? "method"] = "POST";
 
-	/* FIXME Some sort of bug here?
 	if (! is_undefined(callback)) {
-		_request[? "callback"] = argument[2];
+		_request[? "callback"] = callback;
 	}
-	*/
 
 	ds_map_add(global.gm48_leaderboards_requests, _result, _request);
 
