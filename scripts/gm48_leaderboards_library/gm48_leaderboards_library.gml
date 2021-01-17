@@ -85,7 +85,7 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, callback)
 		// Free memory.
 		ds_map_destroy(argument[2]);
 	} else if (argument_count == 3) {
-		show_error("gm48.net-leaderboards-gms2: Unable to prepare meta data for request.", false);
+		show_error("gm48.net-leaderboards-gms2: Meta data is wrong data type. It must be a struct or ds_map.", false);
 	}
 
 	// Send request.
