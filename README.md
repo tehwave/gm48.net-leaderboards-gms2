@@ -39,7 +39,7 @@ Initialize the leaderboards.
 gm48_leaderboards_init();
 ```
 
-You may optionally send an argument, which contains the script that should be executed when the response from the gm48.net API has been received.
+You may optionally send an argument, which contains the script that should be executed when any response from the gm48.net API has been received.
 
 ```gml
 gm48_leaderboards_init(scr_example_callback);
