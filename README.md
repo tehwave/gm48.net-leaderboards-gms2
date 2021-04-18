@@ -81,7 +81,7 @@ Once the player has been authorized, you may proceed to use the Leaderboards lib
 
 ### Submitting scores
 
-> 🚨 Submitting scores is always done on the behalf of an gm48.net account. You should not use your own or the same account for every score submitted.
+> 🚨 Submitting scores is always done on the behalf of an gm48.net account. You should not use your own or the same account for player score submitted. That defeats the purpose.
 
 All you need to submit a score is 1) the ID of the leaderboard, which corresponds to the `ID` value found in gm48.net Dashboard > Games > (your game) > Leaderboards, and 2) the score that you wish to submit.
 
@@ -120,6 +120,16 @@ gm48_leaderboards_get_all_scores(leaderboardId, scr_all_scores_callback_example)
 
 ```gml
 gm48_leaderboards_get_my_scores(leaderboardId, scr_my_scores_callback_example);
+```
+
+Here's an example on how to check if the user has submitted any scores:
+
+```gml
+function scr_my_scores_callback_example(response){
+    if (array_length(response.data.scores) > 0) {
+        global.playerHasSubmittedAScore = true;
+    }
+}
 ```
 
 ## Security
