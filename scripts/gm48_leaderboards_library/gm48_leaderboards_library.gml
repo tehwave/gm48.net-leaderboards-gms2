@@ -55,33 +55,33 @@ API
 
 function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, meta, callback)
 {
-	if (! is_string(global.gm48_oauth2_access_token)) {
+	if (! gm48_isset_oauth2_access_token()) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
 
-	if (! is_string(gm48_get_game_api_token())) {
+	if (! gm48_isset_game_api_token()) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
 
 	// Put together request.
-	var _url = GM48_LEADERBOARDS_API_URL + "leaderboards/" + string(leaderboardId) + "/scores";
+	var url = GM48_LEADERBOARDS_API_URL + "leaderboards/" + string(leaderboardId) + "/scores";
 
-    var _header_map = ds_map_create();
-	    _header_map[? "User-Agent"] = GM48_LEADERBOARDS_USERAGENT;
-		_header_map[? "Authorization"] = "Bearer " + string(global.gm48_oauth2_access_token);
-		_header_map[? "Content-Type"] = "application/x-www-form-urlencoded";
-		_header_map[? "Accept"] = "application/json";
-		_header_map[? "Game-Token"] = gm48_get_game_api_token();
+    var headers = ds_map_create();
+	    headers[? "User-Agent"] = GM48_LEADERBOARDS_USERAGENT;
+		headers[? "Authorization"] = "Bearer " + gm48_get_oauth2_access_token();
+		headers[? "Content-Type"] = "application/x-www-form-urlencoded";
+		headers[? "Accept"] = "application/json";
+		headers[? "Game-Token"] = gm48_get_game_api_token();
 
-    var _body  = "value=" + string(scoreToSubmit);
+    var body  = "value=" + string(scoreToSubmit);
 
 	// Third argument is "meta" which allows you to send additional data along with the score.
 	// This includes support for both ds_map and structs.
 	if (! is_undefined(meta)) {
 		if (is_struct(meta)) {
-			_body += "&meta=" + json_stringify(meta);
+			body += "&meta=" + json_stringify(meta);
 		} else if (is_real(meta) && ds_exists(meta, ds_type_map)) {
-			_body += "&meta=" + string(json_encode(meta));
+			body += "&meta=" + string(json_encode(meta));
 
 			// Free memory.
 			ds_map_destroy(meta);
@@ -91,37 +91,37 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, meta, callbac
 	}
 
 	// Send request.
-    var _result = http_request(_url, "POST", _header_map, _body);
+    var requestId = http_request(url, "POST", headers, body);
 
 	// Save request.
-	var _request = ds_map_create();
-		_request[? "url"] = _url;
-		_request[? "headers"] = _header_map;
-		_request[? "body"] = _body;
-		_request[? "method"] = "POST";
+	var request = ds_map_create();
+		request[? "url"] = url;
+		request[? "headers"] = headers;
+		request[? "body"] = body;
+		request[? "method"] = "POST";
 
 	if (! is_undefined(callback)) {
-		_request[? "callback"] = callback;
+		request[? "callback"] = callback;
 	}
 
-	ds_map_add(global.gm48_leaderboards_requests, _result, _request);
+	gm48_add_leaderboards_request(requestId, request);
 
 	// Log it.
-	gm48_debug("Request sent to Leaderboards API", _url, _body);
+	gm48_debug("Request sent to Leaderboards API", url, body);
 
 	// Free memory.
-    ds_map_destroy(_header_map);
+    ds_map_destroy(headers);
 
-	return _result;
+	return requestId;
 }
 
 function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 {
-	if (! is_string(global.gm48_oauth2_access_token)) {
+	if (! gm48_isset_oauth2_access_token()) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
 
-	if (! is_string(gm48_get_game_api_token())) {
+	if (! gm48_isset_game_api_token()) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
 
@@ -130,7 +130,7 @@ function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 
     var headers = ds_map_create();
 	    headers[? "User-Agent"] = GM48_LEADERBOARDS_USERAGENT;
-		headers[? "Authorization"] = "Bearer " + string(global.gm48_oauth2_access_token);
+		headers[? "Authorization"] = "Bearer " + gm48_get_oauth2_access_token();
 		headers[? "Accept"] = "application/json";
 		headers[? "Game-Token"] = gm48_get_game_api_token();
 
@@ -148,7 +148,7 @@ function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 		request[? "callback"] = argument[1];
 	}
 
-	ds_map_add(global.gm48_leaderboards_requests, requestId, request);
+	gm48_add_leaderboards_request(requestId, request);
 
 	// Log it.
 	gm48_debug("Request sent to Leaderboards API", url);
@@ -161,11 +161,11 @@ function gm48_leaderboards_get_my_scores(leaderboardId, callback)
 
 function gm48_leaderboards_get_all_scores(leaderboardId, callback)
 {
-	if (! is_string(global.gm48_oauth2_access_token)) {
+	if (! gm48_isset_oauth2_access_token()) {
 		show_error("gm48.net-leaderboards-gms2: OAuth2 Access token is required.", true);
 	}
 
-	if (! is_string(gm48_get_game_api_token())) {
+	if (! gm48_isset_game_api_token()) {
 		show_error("gm48.net-leaderboards-gms2: Game API Token is required.", true);
 	}
 
@@ -174,7 +174,7 @@ function gm48_leaderboards_get_all_scores(leaderboardId, callback)
 
     var headers = ds_map_create();
 	    headers[? "User-Agent"] = GM48_LEADERBOARDS_USERAGENT;
-		headers[? "Authorization"] = "Bearer " + string(global.gm48_oauth2_access_token);
+		headers[? "Authorization"] = "Bearer " + gm48_get_oauth2_access_token();
 		headers[? "Accept"] = "application/json";
 		headers[? "Game-Token"] = gm48_get_game_api_token();
 
@@ -192,7 +192,7 @@ function gm48_leaderboards_get_all_scores(leaderboardId, callback)
 		request[? "callback"] = argument[1];
 	}
 
-	ds_map_add(global.gm48_leaderboards_requests, requestId, request);
+	gm48_add_leaderboards_request(requestId, request);
 
 	// Log it.
 	gm48_debug("Request sent to Leaderboards API", url);
@@ -212,118 +212,77 @@ Async
 function gm48_leaderboards_http()
 {
 	// Validate that the request is one of ours.
-	var _id = async_load[? "id"];
+	var requestId = async_load[? "id"];
 
 	if (! ds_exists(global.gm48_leaderboards_requests, ds_type_map)) {
 		show_error("gm48.net-leaderboards-gms2: Requests ds_map doesn't exist.", true);
 	}
 
 	if (ds_map_size(global.gm48_leaderboards_requests) == 0) {
-		gm48_debug("HTTP request is not of Leaderboards variant.", _id);
+		gm48_debug("HTTP request is not of Leaderboards variant.", requestId);
 
 		return;
 	}
 
-	var _request = gm48_retrieve_request(global.gm48_leaderboards_requests, _id);
+	var request = gm48_get_leaderboards_request(requestId);
 
-	if (is_undefined(_request)) {
-		gm48_debug("HTTP request is not of Leaderboards variant.", _id);
+	if (is_undefined(request)) {
+		gm48_debug("HTTP request is not of Leaderboards variant.", requestId);
 
 		return;
 	}
 
 	// Retrieve our remaining data.
-	var _http_status = async_load[? "http_status"];
-    var _status = async_load[? "status"];
-    var _result = async_load[? "result"];
+	var httpStatusCode = async_load[? "http_status"];
+    var status = async_load[? "status"];
+    var result = async_load[? "result"];
 
 	// Validate response.
-	if (_status < 0) {
-		gm48_debug("Something went wrong with request.", _http_status, _status, _result);
+	if (status < 0) {
+		gm48_debug("Something went wrong with request.", httpStatusCode, status, result);
 
 		return;
 	}
 
-	if (_status = 1) {
-		gm48_debug("Content is being downloaded.", _http_status, _status, _result);
+	if (status = 1) {
+		gm48_debug("Content is being downloaded.", httpStatusCode, status, result);
 
 		return;
 	}
 
-	if (_http_status < 200 || _http_status >= 300) {
-		gm48_debug("Non-successful response.", _http_status, _status, _result);
+	if (httpStatusCode < 200 || httpStatusCode >= 300) {
+		gm48_debug("Non-successful response.", httpStatusCode, status, result);
 
 		return;
 	}
 
 	// Process result.
-    var _decoded_result = json_parse(_result);
+    var decodedResult = json_parse(result);
 
-	gm48_debug("Successful response received.", _http_status, _result, _decoded_result);
+	gm48_debug("Successful response received.", httpStatusCode, result, decodedResult);
 
 	// Execute callbacks.
-	if (! is_undefined(_request[? "callback"]) && script_exists(_request[? "callback"])) {
-		script_execute(_request[? "callback"], _decoded_result, _id);
+	if (! is_undefined(request[? "callback"]) && script_exists(request[? "callback"])) {
+		script_execute(request[? "callback"], decodedResult, requestId);
 	}
 
 	if (script_exists(global.gm48_leaderboards_callback)) {
-		script_execute(global.gm48_leaderboards_callback, _decoded_result, _id);
+		script_execute(global.gm48_leaderboards_callback, decodedResult, requestId);
 	}
 }
 
 /* --------------------------------
 
-Helpers
+Local helper scripts.
 
 -------------------------------- */
 
-if (! asset_get_index("gm48_debug")) {
-	function gm48_debug()
-	{
-	    if (! debug_mode) {
-	        return -1
-	    }
-
-		if (argument_count == 1) {
-			show_debug_message("gm48: " + string(argument0));
-
-			return;
-		}
-
-	    var _string = "",
-			_i = 0;
-
-	    repeat(argument_count) {
-	        _string += "(" + string(_i) + ") " + string(argument[_i]) + "\n";
-
-	        ++_i;
-	    }
-
-	    show_debug_message("gm48:\n" + _string);
-	}
+function gm48_add_leaderboards_request(requestId, request)
+{
+	return ds_map_add(global.gm48_leaderboards_requests, requestId, request);
 }
 
-if (! asset_get_index("gm48_retrieve_request")) {
-	function gm48_retrieve_request(requests, requestId)
-	{
-		return ds_map_find_value(requests, requestId);
-	}
-}
-
-if (! asset_get_index("gm48_get_game_api_token")) {
-	function gm48_get_game_api_token()
-	{
-		if (! variable_global_exists("gm48_game_api_token")) {
-			return undefined;
-		}
-
-		return global.gm48_game_api_token;
-	}
-}
-
-if (! asset_get_index("gm48_set_game_api_token")) {
-	function gm48_set_game_api_token(apiToken)
-	{
-		global.gm48_game_api_token = apiToken;
-	}
+function gm48_get_leaderboards_request(requestId)
+{
+	return ds_map_find_value(global.gm48_leaderboards_requests, requestId);
 }
