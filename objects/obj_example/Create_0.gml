@@ -9,11 +9,16 @@ The following variables is required for the example to work.
 `gameApiToken` value is retrieved from the gm48.net Dashboard > (your game) > Leaderboards.
 
 */
-global.gm48_oauth2_access_token =  "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI5MjY2MGYxNC01MzUxLTRmNmMtYmRiZC04OTEyMzZkM2VjYWIiLCJqdGkiOiJjOTQ0NWRmYTliNzUzYjMyMjgwYWZhZGRjNjVkZDRhOTBhZTc0MmNlZGUyNTNiYzdiMDU0OGI1NzYxOGMzMjI5YmU0MzNiNzhkZDljZmZkYiIsImlhdCI6MTYxMDI4NTI5MiwibmJmIjoxNjEwMjg1MjkyLCJleHAiOjE2NDE4MjEyOTIsInN1YiI6IjEiLCJzY29wZXMiOlsibWUiLCJsZWFkZXJib2FyZHMiXX0.yq7VyYjm-53Rpo-q8uFZF8sREEFTEaLGzytTTf8zn9YoWv9cHiLQiAVdkm1zrEZDzGiwFLRupO85K9p7HeofjW9yywhfUFqX53rrEdbM75YxLps0dBR01HiNQTcIVn3qcgYRy1_F3UD9gsCoznBCtdZC8FW8UtLVnM8ACW24jVkrq1Wos9UB-imRKEBgM4mGAgXsFWbDW3qHQ-hIwUaApgiEX53YN9jLozYNHbV3-XzHNDlASt0ibYJJEYgSzBsInnGHok5K8NgnPWkF9oVxhf0VoYYqZz-WrOzDtPExV9lehuf_iwezXQzvmjby85eHk-2hR63dE3JN0NyIRMinSY88q-FU2adEU01DebfIXL8IVPA_QA3jxg67RATKv0JgXWm2T3x8IqEXJhjXh5e2h6Ml7pOSyOio_MIxslA9BS09Ybq3_56d5VyHNB228qdKdH42B-DzA_7tuuIC3tPDQFtwWyog0yCN1iPJEIIx4oId3ksFD0vwY4sdQWX6DgX0lfyfAQaXAMQ7F9aapiBtaNchEcYfr_Q-dSK4CkwBsG6-6edG_uA9rFly7cQNKvGWSecPhLrogbrB4-RILM93-fKiCB2i1nULAIoJbyaN91gsGEtAnzZL_U0LbCp2xbKLHzeuc3Duv4TugNMagZvMPxMy6NIdorrIfZkqBLPlQjo";
 
-leaderboardId = 1;
+// This value must be set for the example to work.
+// You can retrieve it via the gm48.net OAuth2 for GameMaker Studio 2 example.
+global.gm48_oauth2_access_token =  "";
 
-gameApiToken = "E2FYnQwbTFPTT0MAggf8IykVyLmiFA5pqPjl168Uf4ropD1HQtcSYT2MuTVg3UfUSQeGJRlHsQSokxBv";
+// The example real used here is valid for testing against the API.
+leaderboardId = 0;
+
+// The example string used here is valid for testing against the API.
+gameApiToken = "this-api-token-is-used-for-testing";
 
 // Set the Game API Token.
 gm48_set_game_api_token(gameApiToken);
