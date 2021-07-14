@@ -1,5 +1,3 @@
-👷‍♂️👷‍♀️ The Leaderboards API is in Beta and may change at any time without prior warning and disclosure.
-
 # gm48.net Leaderboards for GameMaker Studio 2
 
 Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entry
@@ -15,7 +13,6 @@ Utilize official gm48.net Leaderboards for your GameMaker Studio 2 game jam entr
 ## Installation
 
 > 🚨 This library requires that [gm48.net OAuth2 for GameMaker Studio 2](https://github.com/tehwave/gm48.net-oauth2-gms2) is installed in your GameMaker Studio 2 project.
-
 
 1) Go to gm48.net Dashboard > Games > (your game) > Leaderboards to create and edit your game's leaderboards.
 
