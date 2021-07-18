@@ -73,7 +73,13 @@ function gm48_leaderboards_add_score(leaderboardId, scoreToSubmit, meta, callbac
 		headers[? "Accept"] = "application/json";
 		headers[? "Game-Token"] = gm48_get_game_api_token();
 
-    var body  = "value=" + string(scoreToSubmit);
+	// Set the score as the value. When it's a double, we use json_stringify to preserve
+	// data precision and allow better comparison between scores.
+	var body = "value=" + string(scoreToSubmit);
+		
+	if (is_real(scoreToSubmit) && (floor(scoreToSubmit) != scoreToSubmit)) {
+		body = "value=" + json_stringify(scoreToSubmit);
+	}
 
 	// Third argument is "meta" which allows you to send additional data along with the score.
 	// This includes support for both ds_map and structs.
